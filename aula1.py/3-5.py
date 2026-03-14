@@ -19,7 +19,7 @@
 # combustível gasto e o valor total (R$) recebido dos passageiros. Calcular e escrever: a
 # média do consumo em km/L e o lucro (líquido) do dia.
 
-# #atividade 4 #refazer com match case 
+#atividade 4 #refazer com match case 
 # cod=int(input('Digite um valor para o código:'))
 # if cod==1:
 #     print('Sul')
@@ -42,15 +42,34 @@
 
 # #Atvidade5
 # avaliação optativa depois da média 
-# not1=int(input('Digite a nota da prova 1:'))
-# print(not1)
-# not2=int(input('Digite a nota da prova 2:'))
-# print(not2)
-# medi 
-# se le tiver ficado com média baixa e quiaser pode fazer uma outra prova
-#novamedia 
-#if 
-
+not1=int(input('Digite a nota da prova 1:'))
+print(not1)
+not2=int(input('Digite a nota da prova 2:'))
+print(not2)
+med=(not1+not2)/2
+if med>6:
+    print('aprovado')
+elif med>= 3 and med<6:
+    print('recuperação')
+else:
+    print('rerpovado')
+opta=float(input('Digite a nota da optativa (ou -1 se não fez): '))
+if opta>0:
+    if not1>not2:
+        #not2=opta
+        novmed=(not1+opta)/2
+        print(novmed)
+    else:
+        novmed=(not2+opta)/2
+        print(novmed)
+    if novmed>6:
+        print('aprovado')
+    elif novmed>= 3 and med<6:
+        print('recuperação')
+    else:
+        print('rerpovado')
+else:
+    print(-1)     
 # #atividade 6 
 # valor=int(input('Digite um valor:'))
 # if valor>0:
