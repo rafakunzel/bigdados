@@ -1,3 +1,20 @@
+#aula 5 
+#atividade 1
+somanot=0
+for i in range(10):
+    print(f"Número {i + 1} de 10:")
+    notas = float(input("Digite a nota da prova:"))
+    somanot+=notas
+print(somanot)
+med=somanot/10
+print(med)
+if med>6:
+    print('aprovado')
+elif med>= 3 and med<6:
+    print('recuperação')
+else:
+    print('rerpovado')
+#atividade2
 for i in range(12):
     print(f'data de nascimento {i+1} de 12')
     dia=int(input('Digite o dia que nasceu:'))
@@ -15,3 +32,15 @@ for i in range(12):
         dados=(f'telefone:{telefone}/email:{email}/endereco:{endereco}/pnome{nome}')
     else:
         print('Não pode perticipar da coleta de dados')
+#atividade:3
+nome=input('digite seu nome,cfp ou email para login:')
+senha=int(input('digite os números para sua senha:'))
+cont=3 
+while cont!= 0:
+    passow=int(input('digite sua senha:'))
+    if senha == passow:
+        print('login bem sucedido')
+        break
+    cont-=1 
+    print(f'tente novamente')
+print('longin bloqueado')
