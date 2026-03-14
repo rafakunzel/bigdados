@@ -1,0 +1,17 @@
+for i in range(12):
+    print(f'data de nascimento {i+1} de 12')
+    dia=int(input('Digite o dia que nasceu:'))
+    mes=int(input('Digite o dia que mês:'))
+    ano=int(input('Digite o dia que ano:'))
+    danas=(f'{dia}/{mes}/{ano}') #data de nascimento 
+    print(danas)
+    idade=2026-ano
+    print(idade)
+    if idade>18:
+        telefone=int(input('Digite o dia seu número de telefone:'))
+        email=input('Digite o dia seu email:')
+        endereco=input('Digite seu endereço:')
+        pnome=input('Digite seu nome completo:')
+        dados=(f'telefone:{telefone}/email:{email}/endereco:{endereco}/pnome{nome}')
+    else:
+        print('Não pode perticipar da coleta de dados')
