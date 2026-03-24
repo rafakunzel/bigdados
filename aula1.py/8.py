@@ -40,5 +40,3 @@ def gerar_dados(qtd, min_val, max_val):
 dados_aleatorios = gerar_dados(5, 1, 100) # Gera 5 números entre 1 e 100
 print(f"Dados gerados: {dados_aleatorios}")
 
-
-
