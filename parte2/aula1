@@ -1,1 +1,7 @@
-
+import pandas as pd
+# Ler o arquivo Excel para um DataFrame
+#sheet_name= chama a guia que eu quero no excel, colocar o nome da guia 
+df = pd.read_excel('base_invest.xlsx',sheet_name='Transacoes')
+# Exibir as primeiras 5 linhas do DataFrame
+print(df.head(22))
+#df.tail: ler as últimas linhas
