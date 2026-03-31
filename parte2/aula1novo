@@ -1,0 +1,32 @@
+import pandas as pd
+#Ler o arquivo Excel para um DataFrame
+#sheet_name= chama a guia que eu quero no excel, colocar o nome da guia 
+#contagem no excel é = no python
+df = pd.read_excel('base_invest.xlsx',sheet_name='Transacoes')
+# Exibir as primeiras 5 linhas do DataFrame
+print(df.head(5))
+#df.tail: ler as últimas linhas
+
+idades_lista = [25, 30, 22, 28]
+idades_series = pd.Series([25, 30, 22, 28])
+print(f"Lista:\n{idades_lista}\n")
+print(f"Series:\n{idades_series}")
+
+notas = pd.Series([9.5, 8.0, 7.5, 9.0], index=['João', 'Maria', 'Pedro', 'Ana']) #index muda  o indice pelo texto do indice do index
+notas_ajustadas = notas * 1.10
+print(notas_ajustadas)
+#Operações entre duas Séries:
+#Criar uma segunda Series para comparar
+notas_exame_final = pd.Series([10.0, 7.5, 8.0, 9.5], index=['João', 'Maria', 'Pedro', 'Ana'])
+#Calcular a diferença entre as notas
+diferenca = notas_exame_final - notas_ajustadas
+print(diferenca)
+print(notas)
+print(notas['Maria']) # Acessando a nota de Maria
+print(notas['Pedro']) # Acessando a nota de Pedro
+print(notas.mean()) # Calculando a média das notas
+print(notas[notas > 8]) # Filtrando notas maiores que 8
+print(notas.describe()) # Estatísticas descritivas das notas (count[moda],média,percentis,std[desvio padrão],min e max)
+#media=.mean()  SQL=average
+#moda=.mode()
+#mediana=.median()
