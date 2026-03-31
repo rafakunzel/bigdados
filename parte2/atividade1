@@ -1,0 +1,24 @@
+import pandas as pd
+#Quais são as máximas e mínimas de operação de compra e venda das transações?
+df = pd.read_excel('base_invest.xlsx',sheet_name='Transacoes')
+dfatvo=pd.read_excel('base_invest.xlsx',sheet_name='Ativo')
+# #flitrar coluna e o que contem na coluna. 
+dfcomprar=df[df['operacao']=='compra']
+dfvenda=df[df['operacao']=='venda']
+# variais do que eu quero
+maxcompra=dfcomprar['preco'].max()
+mincompra=dfcomprar['preco'].min()
+maxvenda=dfvenda['preco'].max()
+minvenda=dfvenda['preco'].min()
+print(f'máximo de compras é:{maxcompra}')
+print(f'mímino de compras é:{mincompra}')
+print(f'máximo de vendas é:{maxvenda}')
+print(f'mínimo de compras é:{minvenda}')
+# # #Qual CNPJ tem o ativo de maior valor?
+#criando uma coluna
+df['valortotal']=df['quantidade']*df['preco']
+#GROUP BY: agrupa uma tabela a outra: id_ativo agrupado ao valortotal
+valortotalativo=df.groupby('id_ativo')['valortotal'].sum()
+idativomaxvalor=valortotalativo.idxmax()
+cnpjmaxvalor=dfatvo[dfatvo['id_ativo']==idativomaxvalor]['cnpj'].iloc[0] #iloc[0]
+print(f'O cnpj para ativo com maior valor é:{cnpjmaxvalor}')
