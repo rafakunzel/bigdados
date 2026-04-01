@@ -14,7 +14,8 @@ print(f'máximo de compras é:{maxcompra}')
 print(f'mímino de compras é:{mincompra}')
 print(f'máximo de vendas é:{maxvenda}')
 print(f'mínimo de compras é:{minvenda}')
-# # #Qual CNPJ tem o ativo de maior valor?
+
+# #Qual CNPJ tem o ativo de maior valor?
 #criando uma coluna
 df['valortotal']=df['quantidade']*df['preco']
 #GROUP BY: agrupa uma tabela a outra: id_ativo agrupado ao valortotal
@@ -22,3 +23,11 @@ valortotalativo=df.groupby('id_ativo')['valortotal'].sum()
 idativomaxvalor=valortotalativo.idxmax()
 cnpjmaxvalor=dfatvo[dfatvo['id_ativo']==idativomaxvalor]['cnpj'].iloc[0] #iloc[0]
 print(f'O cnpj para ativo com maior valor é:{cnpjmaxvalor}')
+
+#Qual valor total em transações de cada participante?
+import pandas as pd
+# Ler o arquivo Excel para um DataFrame
+df = pd.read_excel('base_invest.xlsx',sheet_name='transacoes')
+df['valortotal']=df['quantidade']*df['preco']
+valortotalpart=df.groupby('id_participante')['valortotal'].sum()
+print(valortotalpart)
