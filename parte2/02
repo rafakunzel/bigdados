@@ -1,0 +1,36 @@
+import numpy as np
+dados=np.array([12,15,17,20,22,25,28,30,35,40])
+print(dados)
+# Calcular quartis
+q1 = np.percentile(dados, 25) # O 1º quartil representa 25% dos dados
+q2 = np.percentile(dados, 50) # A Mediana é o mesmo que o quartil de 50%
+q3 = np.percentile(dados, 75) # O 3º quartil representa 75% dos dados
+# Exibir os resultados
+print(f"Primeiro quartil (Q1): {q1}")
+print(f"Segundo quartil (Q2, Mediana): {q2}")
+print(f"Terceiro quartil (Q3): {q3}")
+
+import pandas as pd
+df = pd.read_excel('base_invest.xlsx',sheet_name='Transacoes')
+q1_preco = df['preco'].quantile(0.25)
+q2_preco = df['preco'].quantile(0.50)
+q3_preco = df['preco'].quantile(0.75)
+print(f"Preço Q1: {q1_preco}")
+print(f"Preço Mediana (Q2): {q2_preco}")
+print(f"Preço Q3: {q3_preco}")
+
+# # .loc: Para selecionar dados usando rótulos (nomes de colunas ou índices)
+# # .iloc: Para selecionar dados usando a posição numérica
+# # .query: Para filtrar dados com expressões mais complexas
+# # Selecione a linha com índice 2 (iloc)
+print(df.iloc[2])
+# Selecione a linha com id_participante igual a 101 (query)
+print(df.query("id_participante == 101"))
+print(df.loc[df['preco']>32.8])
+import matplotlib.pyplot as plt
+# Contar a frequência de cada tipo de operação
+contagem_operacao = df['operacao'].value_counts()
+# Criar um gráfico de barras
+contagem_operacao.plot(kind='barh', title='Tipos de Operação')
+# Mostrar o gráfico
+plt.show()
