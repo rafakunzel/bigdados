@@ -9,7 +9,30 @@ preco decimal(10,2),
 estoque int
 );
 Select * From produto;
+truncate table produto; #esvazia a tabela 
 
+CREATE TABLE clientes (
+ id_cliente INT PRIMARY KEY,
+ nome VARCHAR(255),
+ email VARCHAR(255)
+);
+
+CREATE TABLE pedidos (
+ id_pedido INT PRIMARY KEY,
+ data_pedido DATE,
+ valor_total DECIMAL(10, 2),
+ id_cliente INT,
+ id_produto INT,
+ quantidade INT
+);
+
+alter table pedidos
+add constraint fk_pedidos_clientes
+foreign key (id_cliente) references clientes(id_cliente); #vincula id_cliente das tabelas (pedidos e cliente) 
+
+alter table pedidos
+add constraint fk_pedidos_produtos
+foreign key (id_produto) references produtos(id_produto);
 conectar sql no python 
 import mysql.connector
 #conectar o sql no python
