@@ -33,6 +33,7 @@ foreign key (id_cliente) references clientes(id_cliente); #vincula id_cliente da
 alter table pedidos
 add constraint fk_pedidos_produtos
 foreign key (id_produto) references produtos(id_produto);
+
 conectar sql no python 
 import mysql.connector
 #conectar o sql no python
