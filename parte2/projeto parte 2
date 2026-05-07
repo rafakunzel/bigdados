@@ -1,0 +1,14 @@
+import polars as pl
+import time 
+ficsv = 'fidiario.csv'
+fipar = 'fidiario_POLARS.parquet'
+
+# 1. scan_csv() apenas cria o plano (LazyFrame)
+fi = pl.scan_csv(ficsv, separator=',', encoding='utf8-lossy')
+
+# 2. sink_parquet() executa o plano em modo streaming
+#    e salva o resultado direto no disco.
+fi.sink_parquet(fipar)
+fid=pl.scan_parquet(fipar).head(5).collect()
+#with pl.Config(tbl_rows=-1, tbl_cols=-1):
+print(fid)
