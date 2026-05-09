@@ -1,14 +1,179 @@
 import polars as pl
-import time 
-ficsv = 'fidiario.csv'
-fipar = 'fidiario_POLARS.parquet'
+pl.Config.set_fmt_float("full")
+import time
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-# 1. scan_csv() apenas cria o plano (LazyFrame)
-fi = pl.scan_csv(ficsv, separator=',', encoding='utf8-lossy')
+# Definindo a consulta estatística
+inicial=pl.scan_parquet("fidiario_POLARS.parquet")
+analisevltotal = inicial.select([
+        pl.col("vltotal").min().alias("minimo"),
+        pl.col("vltotal").mean().alias("media"),
+        pl.col("vltotal").std().alias ("desvio_padrao"),
+        pl.col("vltotal").max().alias("maximo"),
+        pl.col("vltotal").median().alias("mediana"),
+        pl.col('vltotal').quantile(0.25).alias('Q1'),
+        pl.col('vltotal').quantile(0.75).alias('Q3'),
+        pl.col('vltotal').skew().alias('Assimetria'),
+        pl.col('vltotal').kurtosis().alias('Curtose'),
+    ]).collect()
+display(analisevltotal)
+#analise gráfico boxsplot
+q1=analisevltotal['Q1'][0]
+q3=analisevltotal['Q3'][0]
+iqr=q3-q1
+limiteinf=q1-(1.5*iqr)
+limitesup=q3+(1.5*iqr)
+outiliers=inicial.filter((pl.col('vltotal')<limiteinf) | (pl.col('vltotal')>limitesup)).select(['tipfundoclasse','vltotal']).collect()
+# automatização assimetria
+assimetria=analisevltotal['Assimetria'][0]
+if -0.5 <= assimetria <= 0.5:
+  print('Distribuição Simétrica — dados bem balanceados')
+elif assimetria > 0.5:
+  print('Assimétrica Positiva — existem valores muito altos puxando a média')
 
-# 2. sink_parquet() executa o plano em modo streaming
-#    e salva o resultado direto no disco.
-fi.sink_parquet(fipar)
-fid=pl.scan_parquet(fipar).head(5).collect()
-#with pl.Config(tbl_rows=-1, tbl_cols=-1):
-print(fid)
+import polars as pl
+pl.Config.set_fmt_float("full")
+import time
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Definindo a consulta estatística
+inicial=pl.scan_parquet("fidiario_POLARS.parquet")
+analisepatriliquido = inicial.select([
+        pl.col("patriliquido").min().alias("minimo"),
+        pl.col("patriliquido").mean().alias("media"),
+        pl.col("patriliquido").std().alias ("desvio_padrao"),
+        pl.col("patriliquido").max().alias("maximo"),
+        pl.col("patriliquido").median().alias("mediana"),
+        pl.col('patriliquido').quantile(0.25).alias('Q1'),
+        pl.col('patriliquido').quantile(0.75).alias('Q3'),
+        pl.col('patriliquido').skew().alias('Assimetria'),
+        pl.col('patriliquido').kurtosis().alias('Curtose'),
+    ]).collect()
+display(analisepatriliquido)
+#analise gráfico boxsplot
+q1=analisepatriliquido['Q1'][0]
+q3=analisepatriliquido['Q3'][0]
+iqr=q3-q1
+limiteinf=q1-(1.5*iqr)
+limitesup=q3+(1.5*iqr)
+outiliers=inicial.filter((pl.col('patriliquido')<limiteinf) | (pl.col('patriliquido')>limitesup)).select(['tipfundoclasse','patriliquido']).collect()
+# automatização assimetria
+assimetria=analisepatriliquido['Assimetria'][0]
+if -0.5 <= assimetria <= 0.5:
+  print('Distribuição Simétrica — dados bem balanceados')
+elif assimetria > 0.5:
+  print('Assimétrica Positiva — existem valores muito altos puxando a média')
+else:
+  print('Assimétrica Negativa — existem valores muito baixos puxando a média')
+else:
+  print('Assimétrica Negativa — existem valores muito baixos puxando a média')
+
+import polars as pl
+pl.Config.set_fmt_float("full")
+import time
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Definindo a consulta estatística
+inicial=pl.scan_parquet("fidiario_POLARS.parquet")
+analisecapdiario = inicial.select([
+        pl.col("capdirio").min().alias("minimo"),
+        pl.col("capdirio").mean().alias("media"),
+        pl.col("capdirio").std().alias ("desvio_padrao"),
+        pl.col("capdirio").max().alias("maximo"),
+        pl.col("capdirio").median().alias("mediana"),
+        pl.col('capdirio').quantile(0.25).alias('Q1'),
+        pl.col('capdirio').quantile(0.75).alias('Q3'),
+        pl.col('capdirio').skew().alias('Assimetria'),
+        pl.col('capdirio').kurtosis().alias('Curtose'),
+    ]).collect()
+display(analisecapdiario)
+#analise gráfico boxsplot
+q1=analisecapdiario['Q1'][0]
+q3=analisecapdiario['Q3'][0]
+iqr=q3-q1
+limiteinf=q1-(1.5*iqr)
+limitesup=q3+(1.5*iqr)
+outiliers=inicial.filter((pl.col('capdirio')<limiteinf) | (pl.col('capdirio')>limitesup)).select(['tipfundoclasse','capdirio']).collect()
+# automatização assimetria
+assimetria=analisecapdiario['Assimetria'][0]
+if -0.5 <= assimetria <= 0.5:
+  print('Distribuição Simétrica — dados bem balanceados')
+elif assimetria > 0.5:
+  print('Assimétrica Positiva — existem valores muito altos puxando a média')
+else:
+  print('Assimétrica Negativa — existem valores muito baixos puxando a média')
+
+import polars as pl
+pl.Config.set_fmt_float("full")
+import time
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Definindo a consulta estatística
+inicial=pl.scan_parquet("fidiario_POLARS.parquet")
+analiseresgdirio = inicial.select([
+        pl.col("resgdirio").min().alias("minimo"),
+        pl.col("resgdirio").mean().alias("media"),
+        pl.col("resgdirio").std().alias ("desvio_padrao"),
+        pl.col("resgdirio").max().alias("maximo"),
+        pl.col("resgdirio").median().alias("mediana"),
+        pl.col('resgdirio').quantile(0.25).alias('Q1'),
+        pl.col('resgdirio').quantile(0.75).alias('Q3'),
+        pl.col('resgdirio').skew().alias('Assimetria'),
+        pl.col('resgdirio').kurtosis().alias('Curtose'),
+    ]).collect()
+display(analiseresgdirio)
+#analise gráfico boxsplot
+q1=analiseresgdirio['Q1'][0]
+q3=analiseresgdirio['Q3'][0]
+iqr=q3-q1
+limiteinf=q1-(1.5*iqr)
+limitesup=q3+(1.5*iqr)
+outiliers=inicial.filter((pl.col('resgdirio')<limiteinf) | (pl.col('resgdirio')>limitesup)).select(['tipfundoclasse','resgdirio']).collect()
+# automatização assimetria
+assimetria=analiseresgdirio['Assimetria'][0]
+if -0.5 <= assimetria <= 0.5:
+  print('Distribuição Simétrica — dados bem balanceados')
+elif assimetria > 0.5:
+  print('Assimétrica Positiva — existem valores muito altos puxando a média')
+else:
+  print('Assimétrica Negativa — existem valores muito baixos puxando a média')
+
+import polars as pl
+pl.Config.set_fmt_float("full")
+import time
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Definindo a consulta estatística
+inicial=pl.scan_parquet("fidiario_POLARS.parquet")
+analisenumcotista = inicial.select([
+        pl.col("numcotista").min().alias("minimo"),
+        pl.col("numcotista").mean().alias("media"),
+        pl.col("numcotista").std().alias ("desvio_padrao"),
+        pl.col("numcotista").max().alias("maximo"),
+        pl.col("numcotista").median().alias("mediana"),
+        pl.col('numcotista').quantile(0.25).alias('Q1'),
+        pl.col('numcotista').quantile(0.75).alias('Q3'),
+        pl.col('numcotista').skew().alias('Assimetria'),
+        pl.col('numcotista').kurtosis().alias('Curtose'),
+    ]).collect()
+display(analisenumcotista)
+#analise gráfico boxsplot
+q1=analisenumcotista['Q1'][0]
+q3=analisenumcotista['Q3'][0]
+iqr=q3-q1
+limiteinf=q1-(1.5*iqr)
+limitesup=q3+(1.5*iqr)
+outiliers=inicial.filter((pl.col('numcotista')<limiteinf) | (pl.col('numcotista')>limitesup)).select(['tipfundoclasse','numcotista']).collect()
+# automatização assimetria
+assimetria=analisenumcotista['Assimetria'][0]
+if -0.5 <= assimetria <= 0.5:
+  print('Distribuição Simétrica — dados bem balanceados')
+elif assimetria > 0.5:
+  print('Assimétrica Positiva — existem valores muito altos puxando a média')
+else:
+  print('Assimétrica Negativa — existem valores muito baixos puxando a média')
